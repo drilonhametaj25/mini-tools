@@ -1,0 +1,32 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Catalogo Generator",
+  "version": "0.1.0",
+  "identifier": "it.drilonhametaj.catalogo-generator",
+  "build": {
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build",
+    "devUrl": "http://localhost:1428",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [{ "title": "Catalogo Generator — Da Excel a Software", "width": 1200, "height": 800, "minWidth": 900, "minHeight": 600, "theme": "Dark" }],
+    "security": { "csp": null }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": ["icons/32x32.png","icons/128x128.png","icons/128x128@2x.png","icons/icon.icns","icons/icon.ico"],
+    "category": "Productivity",
+    "copyright": "© 2026 Drilon Hametaj — drilonhametaj.it",
+    "shortDescription": "Da Excel a catalogo PDF + sito statico in 60 secondi"
+  },
+  "plugins": {
+    "updater": {
+      "active": true,
+      "endpoints": ["https://drilonhametaj.it/api/updates/catalogo-generator/{{target}}-{{arch}}"],
+      "pubkey": "REPLACE_WITH_TAURI_UPDATER_PUBKEY",
+      "dialog": true
+    }
+  }
+}

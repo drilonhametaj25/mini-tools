@@ -1,0 +1,37 @@
+{
+  "name": "@mini-tools/catalogo-generator",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "tauri:dev": "tauri dev",
+    "tauri:build": "tauri build",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@mini-tools/excel-io": "workspace:*",
+    "@mini-tools/license-client-react": "workspace:*",
+    "@mini-tools/ui-brand": "workspace:*",
+    "@tauri-apps/api": "^2.1.1",
+    "@tauri-apps/plugin-dialog": "^2.0.1",
+    "@tauri-apps/plugin-fs": "^2.0.1",
+    "fflate": "^0.8.2",
+    "pdfmake": "^0.2.13",
+    "qrcode": "^1.5.4",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.1.0",
+    "@types/pdfmake": "^0.2.10",
+    "@types/qrcode": "^1.5.5",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11"
+  }
+}

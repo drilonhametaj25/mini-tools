@@ -1,0 +1,50 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Generatore Documenti",
+  "version": "0.1.0",
+  "identifier": "it.drilonhametaj.generatore-documenti",
+  "build": {
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build",
+    "devUrl": "http://localhost:1423",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "Generatore Documenti — Da Excel a Software",
+        "width": 1200,
+        "height": 800,
+        "minWidth": 800,
+        "minHeight": 600,
+        "theme": "Dark"
+      }
+    ],
+    "security": { "csp": null }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "category": "Productivity",
+    "copyright": "© 2026 Drilon Hametaj — drilonhametaj.it",
+    "shortDescription": "Preventivi, DDT, proforma in PDF brandizzati",
+    "longDescription": "Genera preventivi, DDT e fatture proforma in PDF brandizzati. Gestisce anagrafiche clienti, catalogo articoli, e tracking conversione preventivi → ordini."
+  },
+  "plugins": {
+    "updater": {
+      "active": true,
+      "endpoints": [
+        "https://drilonhametaj.it/api/updates/generatore-documenti/{{target}}-{{arch}}"
+      ],
+      "pubkey": "REPLACE_WITH_TAURI_UPDATER_PUBKEY",
+      "dialog": true
+    }
+  }
+}

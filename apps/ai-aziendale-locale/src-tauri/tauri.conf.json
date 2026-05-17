@@ -1,0 +1,33 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "AI Aziendale Locale",
+  "version": "0.1.0",
+  "identifier": "it.drilonhametaj.ai-aziendale-locale",
+  "build": {
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build",
+    "devUrl": "http://localhost:1429",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [{ "title": "AI Aziendale Locale — Da Excel a Software", "width": 1300, "height": 860, "minWidth": 900, "minHeight": 600, "theme": "Dark" }],
+    "security": { "csp": null }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": ["icons/32x32.png","icons/128x128.png","icons/128x128@2x.png","icons/icon.icns","icons/icon.ico"],
+    "category": "Productivity",
+    "copyright": "© 2026 Drilon Hametaj — drilonhametaj.it",
+    "shortDescription": "ChatGPT sui tuoi documenti, 100% locale e privato",
+    "longDescription": "AI conversazionale sui documenti della tua azienda. Tutto gira sul tuo PC tramite Ollama, nessun dato esce verso server esterni."
+  },
+  "plugins": {
+    "updater": {
+      "active": true,
+      "endpoints": ["https://drilonhametaj.it/api/updates/ai-aziendale-locale/{{target}}-{{arch}}"],
+      "pubkey": "REPLACE_WITH_TAURI_UPDATER_PUBKEY",
+      "dialog": true
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Scadenziario Fiscale",
+  "version": "0.1.0",
+  "identifier": "it.drilonhametaj.scadenziario-fiscale",
+  "build": {
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build",
+    "devUrl": "http://localhost:1425",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      { "title": "Scadenziario Fiscale — Da Excel a Software", "width": 1100, "height": 760, "minWidth": 800, "minHeight": 600, "theme": "Dark" }
+    ],
+    "security": { "csp": null }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": ["icons/32x32.png","icons/128x128.png","icons/128x128@2x.png","icons/icon.icns","icons/icon.ico"],
+    "category": "Productivity",
+    "copyright": "© 2026 Drilon Hametaj — drilonhametaj.it",
+    "shortDescription": "Scadenze fiscali italiane con notifiche desktop"
+  },
+  "plugins": {
+    "updater": {
+      "active": true,
+      "endpoints": ["https://drilonhametaj.it/api/updates/scadenziario-fiscale/{{target}}-{{arch}}"],
+      "pubkey": "REPLACE_WITH_TAURI_UPDATER_PUBKEY",
+      "dialog": true
+    }
+  }
+}

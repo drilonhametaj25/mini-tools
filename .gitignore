@@ -1,0 +1,49 @@
+node_modules/
+dist/
+build/
+.next/
+out/
+coverage/
+.turbo/
+dist-installers/
+
+# Rust — Cargo.lock COMMITTATO per app binarie (riproducibilità build)
+target/
+**/*.rs.bk
+
+# Tauri
+src-tauri/gen/
+src-tauri/target/
+
+# Env
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# Editor
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Secrets / keys — esclude tutti i .pem MA permette la public key che va embedded
+*.pem
+*.key
+private-key.*
+keypair.*
+!crates/license-verify/public-key.pem
+
+# Chiavi JWT del backend — MAI committare la privata
+apps/licensing-backend/.keys/
+
+# Test fixtures con dati reali (mai committare fatture vere di clienti)
+test/fixtures/real/

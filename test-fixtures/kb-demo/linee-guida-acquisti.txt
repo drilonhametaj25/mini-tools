@@ -1,0 +1,35 @@
+LINEE GUIDA PROCESSO ACQUISTI
+
+1. Richiesta di acquisto (RDA)
+   Ogni acquisto sopra €100 richiede una RDA formale, compilata sul portale interno
+   o via email all'ufficio acquisti. La RDA deve specificare:
+   - Descrizione del bene/servizio
+   - Quantità
+   - Fornitore proposto (se già individuato)
+   - Centro di costo
+   - Motivo dell'acquisto
+
+2. Selezione fornitore
+   Per acquisti > €1.000 è obbligatorio raccogliere almeno 3 preventivi.
+   Per acquisti > €10.000 è richiesta l'approvazione del CdA.
+   L'ufficio acquisti mantiene un elenco di fornitori qualificati con valutazione
+   annuale basata su: puntualità, qualità, prezzo, servizio post-vendita.
+
+3. Ordine di acquisto (ODA)
+   L'ODA viene emesso solo dopo l'approvazione della RDA e contiene:
+   - Codice ordine progressivo
+   - Termini di pagamento (default 60 giorni data fattura)
+   - Modalità di consegna
+   - Penali per ritardo (se applicabili)
+
+4. Ricevimento merce
+   Al ricevimento, il magazzino verifica:
+   - Corrispondenza con ODA (quantità, codici prodotto)
+   - Integrità imballaggi
+   - Documenti di trasporto (DDT)
+   Eventuali non conformità vanno segnalate entro 48h al fornitore e ad acquisti.
+
+5. Pagamenti
+   I pagamenti vengono effettuati il giorno 15 e 30 di ogni mese (cut-off).
+   Fatture ricevute dopo il giorno 10 del mese vanno al pagamento del 30.
+   Fatture ricevute dopo il giorno 25 vanno al pagamento del 15 del mese successivo.

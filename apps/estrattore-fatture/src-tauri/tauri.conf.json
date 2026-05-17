@@ -1,0 +1,54 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Estrattore Fatture",
+  "version": "0.1.0",
+  "identifier": "it.drilonhametaj.estrattore-fatture",
+  "build": {
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build",
+    "devUrl": "http://localhost:1420",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "Estrattore Fatture — Da Excel a Software",
+        "width": 1100,
+        "height": 720,
+        "minWidth": 720,
+        "minHeight": 480,
+        "resizable": true,
+        "fullscreen": false,
+        "theme": "Dark"
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "category": "Productivity",
+    "copyright": "© 2026 Drilon Hametaj — drilonhametaj.it",
+    "shortDescription": "Estrai fatture XML/PDF in Excel",
+    "longDescription": "Trasforma fatture XML elettroniche e PDF native in un Excel ordinato in pochi click. 100% offline, dati al sicuro."
+  },
+  "plugins": {
+    "updater": {
+      "active": true,
+      "endpoints": [
+        "https://drilonhametaj.it/api/updates/estrattore-fatture/{{target}}-{{arch}}"
+      ],
+      "pubkey": "REPLACE_WITH_TAURI_UPDATER_PUBKEY",
+      "dialog": true
+    }
+  }
+}

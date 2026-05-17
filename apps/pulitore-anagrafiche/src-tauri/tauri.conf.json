@@ -1,0 +1,50 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Pulitore Anagrafiche",
+  "version": "0.1.0",
+  "identifier": "it.drilonhametaj.pulitore-anagrafiche",
+  "build": {
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build",
+    "devUrl": "http://localhost:1422",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "Pulitore Anagrafiche — Da Excel a Software",
+        "width": 1200,
+        "height": 800,
+        "minWidth": 720,
+        "minHeight": 480,
+        "theme": "Dark"
+      }
+    ],
+    "security": { "csp": null }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "category": "Productivity",
+    "copyright": "© 2026 Drilon Hametaj — drilonhametaj.it",
+    "shortDescription": "Trova e fonde duplicati fuzzy nelle anagrafiche",
+    "longDescription": "Carica anagrafiche da più fonti, il tool trova duplicati fuzzy (stesso soggetto con nomi diversi) e ti permette di fonderli scegliendo il record master."
+  },
+  "plugins": {
+    "updater": {
+      "active": true,
+      "endpoints": [
+        "https://drilonhametaj.it/api/updates/pulitore-anagrafiche/{{target}}-{{arch}}"
+      ],
+      "pubkey": "REPLACE_WITH_TAURI_UPDATER_PUBKEY",
+      "dialog": true
+    }
+  }
+}

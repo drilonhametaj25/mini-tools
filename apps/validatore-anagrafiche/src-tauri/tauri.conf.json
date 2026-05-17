@@ -1,0 +1,51 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Validatore Anagrafiche",
+  "version": "0.1.0",
+  "identifier": "it.drilonhametaj.validatore-anagrafiche",
+  "build": {
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build",
+    "devUrl": "http://localhost:1421",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "Validatore Anagrafiche — Da Excel a Software",
+        "width": 1100,
+        "height": 720,
+        "minWidth": 720,
+        "minHeight": 480,
+        "resizable": true,
+        "theme": "Dark"
+      }
+    ],
+    "security": { "csp": null }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "category": "Productivity",
+    "copyright": "© 2026 Drilon Hametaj — drilonhametaj.it",
+    "shortDescription": "Valida P.IVA, IBAN, CF, email di clienti e fornitori",
+    "longDescription": "Carica la tua anagrafica clienti/fornitori, mappa le colonne, ottieni un Excel evidenziato con tutti gli errori bloccanti, warning e duplicati fuzzy."
+  },
+  "plugins": {
+    "updater": {
+      "active": true,
+      "endpoints": [
+        "https://drilonhametaj.it/api/updates/validatore-anagrafiche/{{target}}-{{arch}}"
+      ],
+      "pubkey": "REPLACE_WITH_TAURI_UPDATER_PUBKEY",
+      "dialog": true
+    }
+  }
+}

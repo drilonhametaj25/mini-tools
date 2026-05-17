@@ -1,0 +1,16 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "Permessi base per PDF Toolkit Pro",
+  "windows": ["main"],
+  "permissions": [
+    "core:default",
+    "core:window:default",
+    "dialog:default",
+    "fs:default",
+    "fs:allow-write-file",
+    "fs:allow-read-file",
+    "fs:allow-mkdir",
+    "updater:default"
+  ]
+}

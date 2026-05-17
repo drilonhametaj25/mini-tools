@@ -1,0 +1,13 @@
+[package]
+name = "machine-id"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+description = "Hash hardware fingerprint cross-platform per attivazione licenze"
+
+[dependencies]
+machine-uid = { workspace = true }
+sha2 = { workspace = true }
+hex = { workspace = true }
+thiserror = { workspace = true }

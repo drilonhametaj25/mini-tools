@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:FatturaElettronica xmlns:p="http://ivaservizi.agenziaentrate.gov.it/docs/xsd/fatture/v1.2" versione="FPR12">
+  <FatturaElettronicaHeader>
+    <DatiTrasmissione>
+      <IdTrasmittente><IdPaese>IT</IdPaese><IdCodice>01234567890</IdCodice></IdTrasmittente>
+      <ProgressivoInvio>00001</ProgressivoInvio>
+      <FormatoTrasmissione>FPR12</FormatoTrasmissione>
+      <CodiceDestinatario>0000000</CodiceDestinatario>
+    </DatiTrasmissione>
+    <CedentePrestatore>
+      <DatiAnagrafici>
+        <IdFiscaleIVA><IdPaese>IT</IdPaese><IdCodice>12485671007</IdCodice></IdFiscaleIVA>
+        <Anagrafica><Denominazione>Gamma Servizi SRL</Denominazione></Anagrafica>
+        <RegimeFiscale>RF01</RegimeFiscale>
+      </DatiAnagrafici>
+      <Sede>
+        <Indirizzo>Via Garibaldi 12</Indirizzo>
+        <CAP>00100</CAP><Comune>Roma</Comune><Provincia>RM</Provincia><Nazione>IT</Nazione>
+      </Sede>
+    </CedentePrestatore>
+    <CessionarioCommittente>
+      <DatiAnagrafici>
+        <IdFiscaleIVA><IdPaese>IT</IdPaese><IdCodice>00488410010</IdCodice></IdFiscaleIVA>
+        <Anagrafica><Denominazione>Acme Forniture SRL</Denominazione></Anagrafica>
+      </DatiAnagrafici>
+      <Sede>
+        <Indirizzo>Corso Italia 45</Indirizzo>
+        <CAP>10100</CAP><Comune>Torino</Comune><Provincia>TO</Provincia><Nazione>IT</Nazione>
+      </Sede>
+    </CessionarioCommittente>
+  </FatturaElettronicaHeader>
+  <FatturaElettronicaBody>
+    <DatiGenerali>
+      <DatiGeneraliDocumento>
+        <TipoDocumento>TD01</TipoDocumento>
+        <Divisa>EUR</Divisa>
+        <Data>2026-04-02</Data>
+        <Numero>2026/0099</Numero>
+        <ImportoTotaleDocumento>915.00</ImportoTotaleDocumento>
+        <Causale>Servizio consulenza IT marzo 2026</Causale>
+      </DatiGeneraliDocumento>
+    </DatiGenerali>
+    <DatiBeniServizi>
+      <DettaglioLinee>
+        <NumeroLinea>1</NumeroLinea>
+        <Descrizione>Consulenza sviluppo software</Descrizione>
+        <Quantita>1.00</Quantita>
+        <UnitaMisura>PZ</UnitaMisura>
+        <PrezzoUnitario>500.00</PrezzoUnitario>
+        <PrezzoTotale>500.00</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+      </DettaglioLinee>
+      <DettaglioLinee>
+        <NumeroLinea>2</NumeroLinea>
+        <Descrizione>Manutenzione server</Descrizione>
+        <Quantita>1.00</Quantita>
+        <UnitaMisura>PZ</UnitaMisura>
+        <PrezzoUnitario>250.00</PrezzoUnitario>
+        <PrezzoTotale>250.00</PrezzoTotale>
+        <AliquotaIVA>22.00</AliquotaIVA>
+      </DettaglioLinee>
+      <DatiRiepilogo>
+        <AliquotaIVA>22.00</AliquotaIVA>
+        <ImponibileImporto>750.00</ImponibileImporto>
+        <Imposta>165.00</Imposta>
+        <EsigibilitaIVA>I</EsigibilitaIVA>
+      </DatiRiepilogo>
+    </DatiBeniServizi>
+  </FatturaElettronicaBody>
+</p:FatturaElettronica>

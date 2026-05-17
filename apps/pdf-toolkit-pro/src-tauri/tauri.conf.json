@@ -1,0 +1,35 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "PDF Toolkit Pro",
+  "version": "0.1.0",
+  "identifier": "it.drilonhametaj.pdf-toolkit-pro",
+  "build": {
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build",
+    "devUrl": "http://localhost:1424",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      { "title": "PDF Toolkit Pro — Da Excel a Software", "width": 1200, "height": 800, "minWidth": 800, "minHeight": 600, "theme": "Dark" }
+    ],
+    "security": { "csp": null }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": ["icons/32x32.png","icons/128x128.png","icons/128x128@2x.png","icons/icon.icns","icons/icon.ico"],
+    "category": "Productivity",
+    "copyright": "© 2026 Drilon Hametaj — drilonhametaj.it",
+    "shortDescription": "Suite PDF 100% offline: merge, split, watermark, encrypt",
+    "longDescription": "Smetti di caricare i tuoi PDF su siti random. Suite completa di operazioni PDF, 100% offline e GDPR-safe."
+  },
+  "plugins": {
+    "updater": {
+      "active": true,
+      "endpoints": ["https://drilonhametaj.it/api/updates/pdf-toolkit-pro/{{target}}-{{arch}}"],
+      "pubkey": "REPLACE_WITH_TAURI_UPDATER_PUBKEY",
+      "dialog": true
+    }
+  }
+}
