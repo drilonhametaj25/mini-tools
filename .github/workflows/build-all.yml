@@ -1,7 +1,5 @@
 name: Build all tools (Windows + macOS)
 
-# Triggera manualmente da GitHub UI → Actions → Run workflow,
-# oppure ad ogni push di un tag del tipo "release-vX.Y.Z".
 on:
   workflow_dispatch:
     inputs:
@@ -10,7 +8,7 @@ on:
         required: true
         default: 'all'
       bypass_license:
-        description: 'Build con VITE_BYPASS_LICENSE=1 (solo testing)'
+        description: 'Build con VITE_BYPASS_LICENSE=1 (testing)'
         type: boolean
         default: true
   push:
@@ -23,8 +21,8 @@ jobs:
       fail-fast: false
       matrix:
         platform:
-          - { os: macos-14,        target: aarch64-apple-darwin,  label: macos-arm64 }
-          - { os: macos-14,        target: x86_64-apple-darwin,   label: macos-intel }
+          - { os: macos-14,        target: aarch64-apple-darwin,   label: macos-arm64 }
+          - { os: macos-14,        target: x86_64-apple-darwin,    label: macos-intel }
           - { os: windows-latest,  target: x86_64-pc-windows-msvc, label: windows-x64 }
 
     runs-on: ${{ matrix.platform.os }}
@@ -59,10 +57,6 @@ jobs:
             crates/*/target
           key: ${{ matrix.platform.os }}-tauri-target-${{ hashFiles('**/Cargo.lock') }}
 
-      - name: Install Linux deps (skip)
-        if: false
-        run: echo "Linux non incluso nella matrice"
-
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
@@ -72,18 +66,13 @@ jobs:
           if [ -n "${{ secrets.LICENSING_JWT_PUBLIC_KEY }}" ]; then
             echo "${{ secrets.LICENSING_JWT_PUBLIC_KEY }}" > crates/license-verify/public-key.pem
           else
-            echo "WARN: secret LICENSING_JWT_PUBLIC_KEY non configurata, uso quella nel repo (sviluppo)."
+            echo "Usando la public key dal repo (modalità dev/bypass)"
           fi
 
-      - name: Set bypass license env
-        if: ${{ inputs.bypass_license == true }}
+      - name: Build all tools
         shell: bash
-        run: echo "VITE_BYPASS_LICENSE=1" >> $GITHUB_ENV
-
-      - name: Build Estrattore Fatture
-        if: contains(inputs.tools, 'estrattore-fatture') || inputs.tools == 'all' || github.event_name == 'push'
-        uses: tauri-apps/tauri-action@v0
         env:
+          VITE_BYPASS_LICENSE: ${{ inputs.bypass_license && '1' || '' }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
           APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
@@ -93,118 +82,57 @@ jobs:
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
           TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
           TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
-          VITE_BYPASS_LICENSE: ${{ env.VITE_BYPASS_LICENSE }}
-        with:
-          projectPath: apps/estrattore-fatture
-          args: --target ${{ matrix.platform.target }}
+        run: |
+          set -e
 
-      - name: Build Validatore Anagrafiche
-        if: contains(inputs.tools, 'validatore-anagrafiche') || inputs.tools == 'all' || github.event_name == 'push'
-        uses: tauri-apps/tauri-action@v0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          VITE_BYPASS_LICENSE: ${{ env.VITE_BYPASS_LICENSE }}
-        with:
-          projectPath: apps/validatore-anagrafiche
-          args: --target ${{ matrix.platform.target }}
+          INPUT_TOOLS="${{ inputs.tools }}"
+          if [ -z "$INPUT_TOOLS" ] || [ "$INPUT_TOOLS" = "all" ] || [ "${{ github.event_name }}" = "push" ]; then
+            TOOLS="estrattore-fatture validatore-anagrafiche pulitore-anagrafiche generatore-documenti pdf-toolkit-pro scadenziario-fiscale riconciliazione-bancaria excel-auditor catalogo-generator ai-aziendale-locale"
+          else
+            TOOLS=$(echo "$INPUT_TOOLS" | tr ',' ' ')
+          fi
 
-      - name: Build Pulitore Anagrafiche
-        if: contains(inputs.tools, 'pulitore-anagrafiche') || inputs.tools == 'all' || github.event_name == 'push'
-        uses: tauri-apps/tauri-action@v0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          VITE_BYPASS_LICENSE: ${{ env.VITE_BYPASS_LICENSE }}
-        with:
-          projectPath: apps/pulitore-anagrafiche
-          args: --target ${{ matrix.platform.target }}
+          TARGET="${{ matrix.platform.target }}"
+          FAILED=""
 
-      - name: Build Generatore Documenti
-        if: contains(inputs.tools, 'generatore-documenti') || inputs.tools == 'all' || github.event_name == 'push'
-        uses: tauri-apps/tauri-action@v0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          VITE_BYPASS_LICENSE: ${{ env.VITE_BYPASS_LICENSE }}
-        with:
-          projectPath: apps/generatore-documenti
-          args: --target ${{ matrix.platform.target }}
+          for app in $TOOLS; do
+            echo ""
+            echo "════════════════════════════════════════════════════════════════"
+            echo "  Building: $app  (target: $TARGET)"
+            echo "════════════════════════════════════════════════════════════════"
+            if pnpm --filter "@mini-tools/$app" exec tauri build --target "$TARGET"; then
+              echo "✓ $app built"
+            else
+              echo "✗ $app FAILED"
+              FAILED="$FAILED $app"
+            fi
+          done
 
-      - name: Build PDF Toolkit Pro
-        if: contains(inputs.tools, 'pdf-toolkit-pro') || inputs.tools == 'all' || github.event_name == 'push'
-        uses: tauri-apps/tauri-action@v0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          VITE_BYPASS_LICENSE: ${{ env.VITE_BYPASS_LICENSE }}
-        with:
-          projectPath: apps/pdf-toolkit-pro
-          args: --target ${{ matrix.platform.target }}
+          if [ -n "$FAILED" ]; then
+            echo ""
+            echo "FALLITI:$FAILED"
+            exit 1
+          fi
 
-      - name: Build Scadenziario Fiscale
-        if: contains(inputs.tools, 'scadenziario-fiscale') || inputs.tools == 'all' || github.event_name == 'push'
-        uses: tauri-apps/tauri-action@v0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          VITE_BYPASS_LICENSE: ${{ env.VITE_BYPASS_LICENSE }}
-        with:
-          projectPath: apps/scadenziario-fiscale
-          args: --target ${{ matrix.platform.target }}
-
-      - name: Build Riconciliazione Bancaria
-        if: contains(inputs.tools, 'riconciliazione-bancaria') || inputs.tools == 'all' || github.event_name == 'push'
-        uses: tauri-apps/tauri-action@v0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          VITE_BYPASS_LICENSE: ${{ env.VITE_BYPASS_LICENSE }}
-        with:
-          projectPath: apps/riconciliazione-bancaria
-          args: --target ${{ matrix.platform.target }}
-
-      - name: Build Excel Auditor
-        if: contains(inputs.tools, 'excel-auditor') || inputs.tools == 'all' || github.event_name == 'push'
-        uses: tauri-apps/tauri-action@v0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          VITE_BYPASS_LICENSE: ${{ env.VITE_BYPASS_LICENSE }}
-        with:
-          projectPath: apps/excel-auditor
-          args: --target ${{ matrix.platform.target }}
-
-      - name: Build Catalogo Generator
-        if: contains(inputs.tools, 'catalogo-generator') || inputs.tools == 'all' || github.event_name == 'push'
-        uses: tauri-apps/tauri-action@v0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          VITE_BYPASS_LICENSE: ${{ env.VITE_BYPASS_LICENSE }}
-        with:
-          projectPath: apps/catalogo-generator
-          args: --target ${{ matrix.platform.target }}
-
-      - name: Build AI Aziendale Locale
-        if: contains(inputs.tools, 'ai-aziendale-locale') || inputs.tools == 'all' || github.event_name == 'push'
-        uses: tauri-apps/tauri-action@v0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          VITE_BYPASS_LICENSE: ${{ env.VITE_BYPASS_LICENSE }}
-        with:
-          projectPath: apps/ai-aziendale-locale
-          args: --target ${{ matrix.platform.target }}
-
-      - name: Collect bundles
+      - name: Collect installers
         if: always()
         shell: bash
         run: |
           mkdir -p bundles
-          # macOS bundles
-          find apps/*/src-tauri/target -path '*/release/bundle/dmg/*.dmg' -exec cp {} bundles/ \; 2>/dev/null || true
-          find apps/*/src-tauri/target -path '*/release/bundle/macos/*.app.tar.gz' -exec cp {} bundles/ \; 2>/dev/null || true
-          # Windows bundles
-          find apps/*/src-tauri/target -path '*/release/bundle/msi/*.msi' -exec cp {} bundles/ \; 2>/dev/null || true
-          find apps/*/src-tauri/target -path '*/release/bundle/nsis/*.exe' -exec cp {} bundles/ \; 2>/dev/null || true
-          ls -la bundles/
+          # macOS .dmg + .app.tar.gz (per updater)
+          find apps/*/src-tauri/target -type f -name '*.dmg' -exec cp {} bundles/ \; 2>/dev/null || true
+          find apps/*/src-tauri/target -type f -name '*.app.tar.gz' -exec cp {} bundles/ \; 2>/dev/null || true
+          # Windows .msi + .exe
+          find apps/*/src-tauri/target -type f -path '*/bundle/msi/*.msi' -exec cp {} bundles/ \; 2>/dev/null || true
+          find apps/*/src-tauri/target -type f -path '*/bundle/nsis/*.exe' -exec cp {} bundles/ \; 2>/dev/null || true
+          echo "Files raccolti:"
+          ls -la bundles/ || echo "(nessuno)"
 
-      - name: Upload installers as artifacts
+      - name: Upload installers
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: installers-${{ matrix.platform.label }}
           path: bundles/
+          if-no-files-found: warn
           retention-days: 14
