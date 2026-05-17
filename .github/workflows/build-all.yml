@@ -69,19 +69,15 @@ jobs:
             echo "Usando la public key dal repo (modalità dev/bypass)"
           fi
 
+      # Le env APPLE_*/TAURI_SIGNING_* NON vanno qui se non sono effettivamente
+      # configurate nei secrets: una stringa vuota fa scattare comunque il codesign
+      # in Tauri, che poi fallisce su `security import`. Per build firmate vere,
+      # configura i secret e usa il workflow release-signed.yml separato.
       - name: Build all tools
         shell: bash
         env:
           VITE_BYPASS_LICENSE: ${{ inputs.bypass_license && '1' || '' }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
-          APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
-          APPLE_SIGNING_IDENTITY: ${{ secrets.APPLE_SIGNING_IDENTITY }}
-          APPLE_ID: ${{ secrets.APPLE_ID }}
-          APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
-          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
-          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
         run: |
           set -e
 
