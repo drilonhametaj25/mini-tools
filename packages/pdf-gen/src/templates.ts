@@ -196,7 +196,7 @@ export function buildDocDefinition(doc: DocumentData, brand: BrandConfig): DocDe
       ? (currentPage: number, pageCount: number) => ({
           columns: [
             {
-              text: "Powered by Da Excel a Software — drilonhametaj.it",
+              text: "Powered by Drilon Hametaj — drilonhametaj.it",
               alignment: "left" as const,
               style: "footerText",
               margin: [40, 0, 0, 0],

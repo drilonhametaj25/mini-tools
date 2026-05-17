@@ -1,5 +1,5 @@
 export const brand = {
-  name: "Da Excel a Software",
+  name: "Drilon Hametaj",
   url: "https://drilonhametaj.it",
   calendlyAudit: "https://calendly.com/drilonhametaj/audit-gratuito",
   colors: {

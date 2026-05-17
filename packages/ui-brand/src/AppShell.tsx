@@ -47,8 +47,10 @@ export function AppShell({ appName, children, headerRight, footer }: AppShellPro
         }}
       >
         <span>
-          Powered by <a href={brand.url} target="_blank" rel="noreferrer">{brand.name}</a>
-          {" — Software custom per PMI"}
+          Powered by{" "}
+          <a href={brand.url} target="_blank" rel="noreferrer" style={{ color: brand.colors.accent }}>
+            {brand.name}
+          </a>
         </span>
         {footer}
       </footer>

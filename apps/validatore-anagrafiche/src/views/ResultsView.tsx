@@ -90,7 +90,7 @@ export function ResultsView({ filename, headers, rows, mapping }: ResultsViewPro
             { key: "valore", header: "Valore", width: 24 },
           ]},
         ],
-        { title: "Validazione anagrafica", author: "Da Excel a Software — drilonhametaj.it" },
+        { title: "Validazione anagrafica", author: "Drilon Hametaj — drilonhametaj.it" },
       );
 
       await writeFile(path, new Uint8Array(buffer));

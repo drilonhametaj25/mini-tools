@@ -143,7 +143,7 @@ export function App() {
           ],
         },
       ],
-      { title: "Riconciliazione bancaria", author: "Da Excel a Software — drilonhametaj.it" },
+      { title: "Riconciliazione bancaria", author: "Drilon Hametaj — drilonhametaj.it" },
     );
     await writeFile(path, new Uint8Array(buffer));
   }

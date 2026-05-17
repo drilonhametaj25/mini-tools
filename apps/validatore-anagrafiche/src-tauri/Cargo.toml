@@ -4,7 +4,7 @@ version.workspace = true
 edition.workspace = true
 authors.workspace = true
 license.workspace = true
-description = "Validatore Anagrafiche — Da Excel a Software"
+description = "Validatore Anagrafiche — Drilon Hametaj"
 
 [lib]
 name = "validatore_anagrafiche_lib"

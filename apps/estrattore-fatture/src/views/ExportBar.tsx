@@ -120,7 +120,7 @@ export function ExportBar({ documents }: ExportBarProps) {
             ],
           },
         ],
-        { title: "Estrazione fatture", author: "Da Excel a Software — drilonhametaj.it" },
+        { title: "Estrazione fatture", author: "Drilon Hametaj — drilonhametaj.it" },
       );
 
       await writeFile(savePath, new Uint8Array(buffer));

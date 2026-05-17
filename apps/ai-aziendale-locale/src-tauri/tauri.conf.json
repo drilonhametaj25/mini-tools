@@ -10,7 +10,7 @@
     "frontendDist": "../dist"
   },
   "app": {
-    "windows": [{ "title": "AI Aziendale Locale — Da Excel a Software", "width": 1300, "height": 860, "minWidth": 900, "minHeight": 600, "theme": "Dark" }],
+    "windows": [{ "title": "AI Aziendale Locale — Drilon Hametaj", "width": 1300, "height": 860, "minWidth": 900, "minHeight": 600, "theme": "Dark" }],
     "security": { "csp": null }
   },
   "bundle": {

@@ -11,7 +11,7 @@
   },
   "app": {
     "windows": [
-      { "title": "Scadenziario Fiscale — Da Excel a Software", "width": 1100, "height": 760, "minWidth": 800, "minHeight": 600, "theme": "Dark" }
+      { "title": "Scadenziario Fiscale — Drilon Hametaj", "width": 1100, "height": 760, "minWidth": 800, "minHeight": 600, "theme": "Dark" }
     ],
     "security": { "csp": null }
   },

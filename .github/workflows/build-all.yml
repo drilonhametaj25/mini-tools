@@ -137,6 +137,14 @@ jobs:
           echo "Totale file:"
           find bundles -type f | wc -l
 
+      - name: Upload test fixtures (solo da Windows per evitare duplicati)
+        if: always() && matrix.platform.os == 'windows-latest'
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-fixtures
+          path: test-fixtures/
+          retention-days: 14
+
       - name: Upload installers
         if: always()
         uses: actions/upload-artifact@v4

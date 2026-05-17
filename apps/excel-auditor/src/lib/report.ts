@@ -140,7 +140,7 @@ export async function buildAuditReportPdf(report: AuditReport): Promise<Uint8Arr
     },
     footer: (currentPage: number, pageCount: number) => ({
       columns: [
-        { text: "Powered by Da Excel a Software — drilonhametaj.it", style: "footerText", margin: [40, 0, 0, 0] },
+        { text: "Powered by Drilon Hametaj — drilonhametaj.it", style: "footerText", margin: [40, 0, 0, 0] },
         { text: `${currentPage} / ${pageCount}`, alignment: "right", margin: [0, 0, 40, 0] },
       ],
       margin: [0, 20, 0, 0],

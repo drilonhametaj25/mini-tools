@@ -19,7 +19,7 @@ export interface WorkbookOptions {
   title?: string;
 }
 
-const BRAND_AUTHOR = "Da Excel a Software — drilonhametaj.it";
+const BRAND_AUTHOR = "Drilon Hametaj — drilonhametaj.it";
 
 function applyColumnWidths(ws: XLSX.WorkSheet, columns: ColumnSpec[]): void {
   ws["!cols"] = columns.map((c) => ({ wch: c.width ?? Math.max(12, c.header.length + 2) }));

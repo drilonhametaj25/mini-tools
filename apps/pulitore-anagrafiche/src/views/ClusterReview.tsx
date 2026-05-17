@@ -129,7 +129,7 @@ export function ClusterReview({ sources }: ClusterReviewProps) {
             ],
           },
         ],
-        { title: "Anagrafica deduplicata", author: "Da Excel a Software — drilonhametaj.it" },
+        { title: "Anagrafica deduplicata", author: "Drilon Hametaj — drilonhametaj.it" },
       );
 
       await writeFile(path, new Uint8Array(buffer));

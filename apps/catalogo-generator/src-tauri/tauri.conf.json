@@ -10,7 +10,7 @@
     "frontendDist": "../dist"
   },
   "app": {
-    "windows": [{ "title": "Catalogo Generator — Da Excel a Software", "width": 1200, "height": 800, "minWidth": 900, "minHeight": 600, "theme": "Dark" }],
+    "windows": [{ "title": "Catalogo Generator — Drilon Hametaj", "width": 1200, "height": 800, "minWidth": 900, "minHeight": 600, "theme": "Dark" }],
     "security": { "csp": null }
   },
   "bundle": {

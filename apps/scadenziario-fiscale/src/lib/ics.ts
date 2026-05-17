@@ -37,7 +37,7 @@ export function buildIcs(scadenze: Scadenza[], calendarName: string): string {
   return [
     "BEGIN:VCALENDAR",
     "VERSION:2.0",
-    "PRODID:-//Da Excel a Software//Scadenziario Fiscale//IT",
+    "PRODID:-//Drilon Hametaj//Scadenziario Fiscale//IT",
     "CALSCALE:GREGORIAN",
     `X-WR-CALNAME:${escapeIcs(calendarName)}`,
     ...events,

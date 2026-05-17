@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Drilon Hametaj — Licensing",
-  description: "Sistema licenze per i tool Da Excel a Software",
+  description: "Sistema licenze per i tool Drilon Hametaj",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
