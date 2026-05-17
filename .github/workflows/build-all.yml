@@ -79,7 +79,9 @@ jobs:
           VITE_BYPASS_LICENSE: ${{ inputs.bypass_license && '1' || '' }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          set -e
+          # NB: NON usiamo `set -e` perché il loop deve continuare anche se
+          # una singola app fallisce, in modo da raccogliere gli installer
+          # delle altre 9 negli artifacts.
 
           INPUT_TOOLS="${{ inputs.tools }}"
           if [ -z "$INPUT_TOOLS" ] || [ "$INPUT_TOOLS" = "all" ] || [ "${{ github.event_name }}" = "push" ]; then
@@ -115,14 +117,25 @@ jobs:
         shell: bash
         run: |
           mkdir -p bundles
-          # macOS .dmg + .app.tar.gz (per updater)
-          find apps/*/src-tauri/target -type f -name '*.dmg' -exec cp {} bundles/ \; 2>/dev/null || true
-          find apps/*/src-tauri/target -type f -name '*.app.tar.gz' -exec cp {} bundles/ \; 2>/dev/null || true
-          # Windows .msi + .exe
-          find apps/*/src-tauri/target -type f -path '*/bundle/msi/*.msi' -exec cp {} bundles/ \; 2>/dev/null || true
-          find apps/*/src-tauri/target -type f -path '*/bundle/nsis/*.exe' -exec cp {} bundles/ \; 2>/dev/null || true
-          echo "Files raccolti:"
-          ls -la bundles/ || echo "(nessuno)"
+          echo "=== Struttura target/ ==="
+          ls -la target/ 2>/dev/null || echo "(target/ non esiste)"
+          echo ""
+          echo "=== Cartelle bundle trovate ==="
+          find target -type d -name bundle 2>/dev/null || echo "(nessuna)"
+          echo ""
+          echo "=== Cerco installer ==="
+          # I bundle Tauri con --target finiscono in target/<TARGET>/release/bundle/
+          # Su Windows: bundle/msi/*.msi e bundle/nsis/*.exe
+          # Su macOS:   bundle/dmg/*.dmg e bundle/macos/*.app.tar.gz
+          find target -type f -path '*/release/bundle/*' \
+            \( -name '*.msi' -o -name '*.dmg' -o -name '*.exe' -o -name '*.app.tar.gz' \) \
+            -print -exec cp {} bundles/ \; 2>/dev/null || true
+          echo ""
+          echo "=== bundles/ finale ==="
+          ls -lah bundles/ || echo "(nessun file raccolto)"
+          echo ""
+          echo "Totale file:"
+          find bundles -type f | wc -l
 
       - name: Upload installers
         if: always()
